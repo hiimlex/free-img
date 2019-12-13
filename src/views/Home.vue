@@ -10,6 +10,3 @@ export default {
   components: { Lorems }
 };
 </script>
-
-<style>
-</style>

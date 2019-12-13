@@ -10,8 +10,7 @@
     <v-row>
       <v-col cols="12" sm="12" md="6" lg="4" xl="3" v-for="photo in photos" :key="photo.id">
         <v-card class="mx-auto" max-width="400">
-          {{photo}}
-          <v-img :src="photo.download_url"></v-img>
+          <v-img height="300" width="400" :src="photo.download_url"></v-img>
           <v-card-actions>
             <v-card-title>By {{photo.author}}</v-card-title>
             <v-spacer></v-spacer>
@@ -40,7 +39,7 @@ export default {
   },
   created() {
     axios
-      .get("https://picsum.photos/v2/list?page=" + this.page + "&limit=100")
+      .get("https://picsum.photos/v2/list")
       .then(response => {
         this.photos = response.data;
       })
@@ -48,8 +47,16 @@ export default {
   },
   methods: {
     random() {
-      axios.get;
       this.page = Math.floor(Math.random() * 11);
+      this.getPics();
+    },
+    getPics() {
+      axios
+        .get("https://picsum.photos/v2/list?page=" + this.page + "&limit=30")
+        .then(response => {
+          this.photos = response.data;
+        })
+        .catch(() => {});
     }
   }
 };
